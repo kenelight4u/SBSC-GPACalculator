@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 
 namespace GPACalculator
 {
@@ -15,7 +16,7 @@ namespace GPACalculator
             Menu menu = new Menu();
             menu.SetCurrentStage(1);
             Db appDb = Db.Initialize();
-
+            
             bool appIsRunning = true;
             // always perform this when the user is in top menu
             while (appIsRunning)
@@ -82,11 +83,98 @@ namespace GPACalculator
 
                 while (menu.GetCurrentStatge() == 3)
                 {
+                    var myData = appDb.GetAllCourses();
                    
-                    
-                    
-                    break;
-                    
+                    // myData.Count() == 0
+                    if (!myData.Any())
+                    {
+                        Menu.PromptUser($"No Course Added... ");
+                        Menu.PromptUser($" ");
+                        menu.SetCurrentStage(1);
+                    }
+                    else
+                    {
+                        Menu.PromptUser($"Your Data inputted are: Course Code || Course Unit || Score ");
+                        foreach (var data in myData)
+                        {
+                            Menu.PromptUser($"{data.courseCode.ToUpper()} {data.numberOfUnits} {data.courseScore}");
+                        }
+
+                        Menu.PromptUser($" ");
+                        Menu.PromptUser($"Are your Data Correct? ");
+                        Menu.PromptUser($"If correct, Enter 'Yes' to continue or 'Edit' to Edit or 'No' to start again:  ");
+                        string yesOrNO = Console.ReadLine().ToLower();
+
+                        while (yesOrNO != "yes" && yesOrNO != "no" && yesOrNO != "edit")
+                        {
+                            Menu.PromptUser($"Invalid option");
+                            Menu.PromptUser($"Please, Are your Data Correct? ");
+                            Menu.PromptUser("If correct, Enter 'Yes' to continue or 'Edit' to Edit or 'No' to start again :");
+                            yesOrNO = Console.ReadLine();
+                        }
+
+                        if (yesOrNO == "yes")
+                        {
+                            double unitsTimesGradePoint = 0d; int sumUnits = 0; decimal gpa = 0M;
+                            Grades myGrade; int myGradePoint;
+
+                            Menu.PromptUser($"Your Data inputted are: Course Code || Course Unit || Score || Grade");
+                            foreach (var value in myData)
+                            {
+                            
+                                if (value.courseScore >= 70 && value.courseScore < 100)
+                                {
+                                    myGrade = Grades.A;
+                                    myGradePoint = (int) Grades.A;
+                                }
+                                else if (value.courseScore >= 60 && value.courseScore < 70)
+                                {
+                                    myGrade = Grades.B;
+                                    myGradePoint = (int) Grades.B;
+                                }
+                                else if (value.courseScore >= 50 && value.courseScore < 60)
+                                {
+                                    myGrade = Grades.C;
+                                    myGradePoint = (int) Grades.C;
+                                }
+                                else if (value.courseScore >= 40 && value.courseScore < 50)
+                                {
+                                    myGrade = Grades.D;
+                                    myGradePoint = (int) Grades.D;
+                                }
+                                else
+                                {
+                                    myGrade = Grades.F;
+                                    myGradePoint = (int) Grades.F;
+                                }
+
+                                unitsTimesGradePoint += myGradePoint * value.numberOfUnits;
+                                sumUnits += value.numberOfUnits;
+                                Menu.PromptUser($"{value.courseCode.ToUpper()} {value.numberOfUnits} {value.courseScore} {myGrade}");
+                            }
+                            gpa = Convert.ToDecimal(unitsTimesGradePoint)  / sumUnits;
+                            Menu.PromptUser($"GPA is: {gpa}");
+
+                            Console.ReadKey();
+                            Console.Clear();
+                            // appDb.RemoveAllCourses();
+                            menu.SetCurrentStage(1);   
+                        }
+                        else if (yesOrNO == "edit")
+                        {
+                            Menu.PromptUser($"Enter the Course Code you want to remove");
+                            string removeCourseName = Console.ReadLine();
+                            appDb.RemoveCourse(removeCourseName);
+                            Menu.PromptUser($"{removeCourseName} removed ");
+                            menu.SetCurrentStage(1);
+                        }
+                        else
+                        {
+                            Menu.PromptUser($"All Courses Cleared, You can Start again!!!");
+                            appDb.RemoveAllCourses();
+                            menu.SetCurrentStage(1);
+                        }    
+                    }
                 }
             }
         }
