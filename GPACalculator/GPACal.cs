@@ -1,16 +1,28 @@
 using System;
+using System.Collections.Generic;
 
 namespace GPACalculator
 {
     public class GPACal
     {
        
-       
+       public GPACal()
+       {
+           
+       }
        
 
         // Menu.PromptUser("What would you like to do Today? ");
-        public static void Calculator()
+        public static void Calculator(List<Course> appDb)
         {
+            // var myData = appDb.GetAllCourses();
+
+            // Menu.PromptUser($"Your Data inputted are: Course Code || Course Unit || Score ");
+            // foreach (var data in myData)
+            // {
+            //     Menu.PromptUser($"{data.courseCode.ToUpper()} {data.numberOfUnits} {data.courseScore}");
+            // }
+
             // double unitsTimesGradePoint = 0d; int sumUnits = 0; decimal gpa = 0M;
             // Grades myGrade; int myGradePoint;
 

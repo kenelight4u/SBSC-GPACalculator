@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System;
 
 namespace GPACalculator
@@ -94,11 +95,14 @@ namespace GPACalculator
                     }
                     else
                     {
-                        Menu.PromptUser($"Your Data inputted are: Course Code || Course Unit || Score ");
+                        Menu.PromptUser($"The Data inputted are: ");
+                        Menu.PromptUser($"{"Course Code", -15} | {"Units", 5} | {"Score", 5}");
                         foreach (var data in myData)
                         {
-                            Menu.PromptUser($"{data.courseCode.ToUpper()} {data.numberOfUnits} {data.courseScore}");
+                            Menu.PromptUser($"{data.courseCode.ToUpper(), -15} {data.numberOfUnits, 5} {data.courseScore, 7}");
                         }
+                        // GPACal.Calculator(List<Course> appDb);
+                        
 
                         Menu.PromptUser($" ");
                         Menu.PromptUser($"Are your Data Correct? ");
@@ -118,7 +122,8 @@ namespace GPACalculator
                             double unitsTimesGradePoint = 0d; int sumUnits = 0; decimal gpa = 0M;
                             Grades myGrade; int myGradePoint;
 
-                            Menu.PromptUser($"Your Data inputted are: Course Code || Course Unit || Score || Grade");
+                            Menu.PromptUser($"The Data inputted are: ");
+                            Menu.PromptUser($"{"Course Code", -15} | {"Units", 5} | {"Score", 5} | {"Grade", 5}");
                             foreach (var value in myData)
                             {
                             
@@ -150,7 +155,7 @@ namespace GPACalculator
 
                                 unitsTimesGradePoint += myGradePoint * value.numberOfUnits;
                                 sumUnits += value.numberOfUnits;
-                                Menu.PromptUser($"{value.courseCode.ToUpper()} {value.numberOfUnits} {value.courseScore} {myGrade}");
+                                Menu.PromptUser($"{value.courseCode.ToUpper(), -15} {value.numberOfUnits, 5} {value.courseScore, 7} {myGrade, 7}");
                             }
                             gpa = Convert.ToDecimal(unitsTimesGradePoint)  / sumUnits;
                             Menu.PromptUser($"GPA is: {gpa}");
