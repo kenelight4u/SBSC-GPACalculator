@@ -56,7 +56,7 @@ namespace GPACalculator
                 sumUnits += value.numberOfUnits;
                 Menu.PromptUser($"{value.courseCode.ToUpper(), -15} {value.numberOfUnits, 5} {value.courseScore, 7} {myGrade, 7}");
             }
-            gpa = Convert.ToDecimal(unitsTimesGradePoint)  / sumUnits;
+            gpa = Math.Round(Convert.ToDecimal(unitsTimesGradePoint)  / sumUnits, 4);
             Menu.PromptUser($"GPA is: {gpa}");
 
             Console.ReadKey();
