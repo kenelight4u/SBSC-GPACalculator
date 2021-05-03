@@ -103,6 +103,7 @@ namespace GPACalculator
 
                         while (yesOrNO != "yes" && yesOrNO != "no" && yesOrNO != "edit")
                         {
+                            Menu.PromptUser($" ");
                             Menu.PromptUser($"Invalid option");
                             Menu.PromptUser($"Please, Are your Data Correct? ");
                             Menu.PromptUser("If correct, Enter 'Yes' to continue or 'Edit' to Edit or 'No' to start again :");
@@ -120,12 +121,14 @@ namespace GPACalculator
                             string removeCourseName = Console.ReadLine();
                             appDb.RemoveCourse(removeCourseName);
                             Menu.PromptUser($"{removeCourseName} removed ");
+                            Menu.PromptUser($" ");
                             menu.SetCurrentStage(1);
                         }
                         else
                         {
                             Menu.PromptUser($"All Courses Cleared, Fill out the Form Again!!!");
                             appDb.RemoveAllCourses();
+                            Menu.PromptUser($" ");
                             menu.SetCurrentStage(1);
                         }    
                     }
