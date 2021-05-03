@@ -6,7 +6,7 @@ namespace GPACalculator
     public class GPACal
     {
 
-        public static void ListCourse(List<Course> myList)
+        public static void CourseList(IEnumerable<Course> myList)
         {
             Menu.PromptUser($"The Data inputted are: ");
             Menu.PromptUser($"{"Course Code", -15} | {"Units", 5} | {"Score", 5}");
@@ -16,7 +16,7 @@ namespace GPACalculator
             }
         }
 
-        public static void Calculator(List<Course> myData)
+        public static void Calculator(IEnumerable<Course> myData)
         {
             double unitsTimesGradePoint = 0d; int sumUnits = 0; decimal gpa = 0M;
             Grades myGrade; int myGradePoint;
