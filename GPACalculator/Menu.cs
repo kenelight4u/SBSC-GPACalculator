@@ -11,6 +11,7 @@ namespace GPACalculator
         {
             
         }
+        
         public Menu(int initialStage)
         {
             this.currentStage = initialStage;

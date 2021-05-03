@@ -40,6 +40,11 @@ namespace GPACalculator
             return this.CourseTable;
         }
 
+        public void RemoveAllCourses()
+        {
+            this.CourseTable.Clear();
+        }
+
         // <summary>
         // in the works
         // </summary>
